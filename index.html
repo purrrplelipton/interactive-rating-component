@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/images/favicon-32x32.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatistic.com"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&display=swap"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <title>Interactive rating component | Frontend Mentor</title>
+  </head>
+  <body>
+    <div class="card">
+      <div class="image-wrapper">
+        <img src="/images/icon-star.svg" width="17" height="16" />
+      </div>
+      <h1>How did we do?</h1>
+      <p>
+        Please let us know how we did with your support request. All feedback is
+        appreciated to help us improve our offering!
+      </p>
+      <form id="rating-form">
+        <fieldset>
+          <label for="one-star">
+            <input type="radio" name="rating" id="one-star" value="1" />
+            <i class="indicator"></i>
+            <span class="label">1</span>
+          </label>
+          <label for="two-star">
+            <input type="radio" name="rating" id="two-star" value="2" />
+            <i class="indicator"></i>
+            <span class="label">2</span>
+          </label>
+          <label for="three-star">
+            <input type="radio" name="rating" id="three-star" value="3" />
+            <i class="indicator"></i>
+            <span class="label">3</span>
+          </label>
+          <label for="four-star">
+            <input
+              type="radio"
+              name="rating"
+              id="four-star"
+              value="4"
+              autofocus
+            />
+            <i class="indicator"></i>
+            <span class="label">4</span>
+          </label>
+          <label for="five-star">
+            <input type="radio" name="rating" id="five-star" value="5" />
+            <i class="indicator"></i>
+            <span class="label">5</span>
+          </label>
+        </fieldset>
+        <input type="submit" value="submit" />
+      </form>
+    </div>
+    <div class="card appreciation" hidden>
+      <img src="/images/illustration-thank-you.svg" width="162" height="108" />
+      <button class="change-rating" type="button">
+        You selected&NonBreakingSpace;<span class="rating"></span
+        >&NonBreakingSpace;out of 5
+      </button>
+      <h1>Thank you!</h1>
+      <p>
+        We appreciate you taking the time to give a rating. If you ever need
+        more support, don&CloseCurlyQuote;t hesitate to get in touch!
+      </p>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("rating-form");
+        const cards = document.querySelectorAll(".card");
+        const span = document.querySelector(".rating");
+        const change$rating = document.querySelector(".change-rating");
+
+        form.addEventListener("submit", (evt) => {
+          evt.preventDefault();
+          const target = evt.currentTarget;
+          const chosen$rating = target.querySelector('[name="rating"]:checked');
+          if (!chosen$rating) return;
+          span.innerHTML = chosen$rating.getAttribute("value");
+          setTimeout(
+            () => cards.forEach((cd) => (cd.hidden = !cd.hidden)),
+            100
+          );
+        });
+
+        change$rating.addEventListener("click", () => {
+          cards.forEach((cd) => (cd.hidden = !cd.hidden));
+          setTimeout(() => (span.innerHTML = null), 100);
+        });
+      });
+    </script>
+  </body>
+</html>
